@@ -17,12 +17,16 @@ foreach ($forum_data as $post)
 	
 	if (strtolower($post->title) == strtolower($now_playing))
 	{
-		$now_playing_url = "$base_url?".$post->attributes()->id;
+		$now_playing_url = "$base_url?".$post->attributes()->id;	
+		$now_playing_url .= "-".str_replace(' ', '-', $now_playing);
+		$now_playing_url = str_replace('---', '-', $now_playing_url);
 	}
 
 	if (strtolower($post->title) == strtolower($next_playing))
 	{
 		$next_playing_url = "$base_url?".$post->attributes()->id;
+		$next_playing_url .= "-".str_replace(' ', '-', $next_playing);
+		$next_playing_url = str_replace('---', '-', $next_playing_url);
 	}
 }
 
