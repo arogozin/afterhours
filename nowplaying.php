@@ -13,16 +13,25 @@ $next_playing_url = '';
 foreach ($forum_data as $post)
 {
 	$now_playing = str_replace(' on AH.FM', '', $banner_data->now_playing);
-	$next_playing = str_replace(' on AH.FM', '', $banner_data->next_playing);
+	//$now_playing = str_replace('&amp;', '&', $banner_data->now_playing);
 	
-	if (strtolower($post->title) == strtolower($now_playing))
+	$next_playing = str_replace(' on AH.FM', '', $banner_data->next_playing);
+	//$next_playing = str_replace('&amp;', '&', $banner_data->next_playing);
+	
+	$post_title = $post->title;
+	$post_title = str_replace('<![CDATA[ ', '', $post_title);
+	$post_title = str_replace(' ]]>', '', $post_title);
+	
+	//$post_title = str_replace('&amp;', '&', $post_title);
+	
+	if (strtolower($post_title) == strtolower($now_playing))
 	{
 		$now_playing_url = "$base_url?".$post->attributes()->id;	
 		$now_playing_url .= "-".str_replace(' ', '-', $now_playing);
 		$now_playing_url = str_replace('---', '-', $now_playing_url);
 	}
 
-	if (strtolower($post->title) == strtolower($next_playing))
+	if (strtolower($post_title) == strtolower($next_playing))
 	{
 		$next_playing_url = "$base_url?".$post->attributes()->id;
 		$next_playing_url .= "-".str_replace(' ', '-', $next_playing);
