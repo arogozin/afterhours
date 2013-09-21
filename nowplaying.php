@@ -93,6 +93,6 @@ class Link
 $link = new Link();
 
 echo "<url_link>". $link->get_now_playing_url() ."</url_link>\n";
-echo "<next_link>". $link->get_next_playing_url() ."<next_link>\n";
+echo "<next_link>". $link->get_next_playing_url() ."</next_link>\n";
 
 ?>
