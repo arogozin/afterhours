@@ -1,5 +1,7 @@
 <?php
 
+$default_url = (isset($argv[1]))?$argv[1]:'http://ah.fm/';
+
 $banner_current_url = 'http://www.ah.fm/stats/bannercurrent.xml';
 $forum_data_url = 'http://www.ah.fm/forum/external.php?type=XML&forumids=178&count=500';
 $base_url = 'http://www.ah.fm/forum/showthread.php';
@@ -39,8 +41,8 @@ foreach ($forum_data as $post)
 	}
 }
 
-$now_playing_url = (!empty($now_playing_url))?$now_playing_url:'http://ah.fm/';
-$next_playing_url = (!empty($next_playing_url))?$next_playing_url:'http://ah.fm/';
+$now_playing_url = (!empty($now_playing_url))?$now_playing_url:$default_url;
+$next_playing_url = (!empty($next_playing_url))?$next_playing_url:$default_url;
 
 /*
 SimpleXMLElement Object
