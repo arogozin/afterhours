@@ -15,12 +15,12 @@ foreach ($forum_data as $post)
 	$now_playing = str_replace(' on AH.FM', '', $banner_data->now_playing);
 	$next_playing = str_replace(' on AH.FM', '', $banner_data->next_playing);
 	
-	if ($post->title == $now_playing)
+	if (strtolower($post->title) == strtolower($now_playing))
 	{
 		$now_playing_url = "$base_url?".$post->attributes()->id;
 	}
-	
-	if ($post->title == $next_playing)
+
+	if (strtolower($post->title) == strtolower($next_playing))
 	{
 		$next_playing_url = "$base_url?".$post->attributes()->id;
 	}
