@@ -21,7 +21,6 @@ class Link
 		
 		$this->obtainData();
 		$this->run();
-		
 		$this->finalize();
 	}
 	
@@ -41,6 +40,13 @@ class Link
 		
 		if (strtotime(substr($result, 0, 10)))
 			$result = substr($result, 11);
+		
+		$tmp = explode(' ', $result);
+		if (is_numeric($tmp[0]))
+		{
+			$offset = strlen($tmp[0]) + 1;
+			$result = substr($result, $offset);
+		}
 		
 		$result = str_replace('<![CDATA[ ', '', $result);
 		$result = str_replace(' ]]>', '', $result);
@@ -68,13 +74,18 @@ class Link
 	}
 	
 	public function run()
-	{
+	{	
 		foreach ($this->forum_data as $data)
 		{
 			if (strtolower($this->cleanTitle($data->title)) == strtolower($this->cleanTitle($this->banner_data->now_playing)))
 				$this->now_playing_url = $this->constructUrl($data->attributes()->id, $data->title);
-				
+			
+			else if ($tmp = strpos(strtolower($this->cleanTitle($data->title)), strtolower(reset(explode(' - ', $this->cleanTitle($this->banner_data->now_playing))))) !== false)
+				$this->now_playing_url = $this->constructUrl($data->attributes()->id, $data->title);
+			
 			if (strtolower($this->cleanTitle($data->title)) == strtolower($this->cleanTitle($this->banner_data->next_playing)))
+				$this->next_playing_url = $this->constructUrl($data->attributes()->id, $data->title);
+			else if ($tmp = strpos(strtolower($this->cleanTitle($data->title)), strtolower(reset(explode(' - ', $this->cleanTitle($this->banner_data->next_playing))))) !== false)
 				$this->next_playing_url = $this->constructUrl($data->attributes()->id, $data->title);
 		}
 	}
@@ -88,11 +99,15 @@ class Link
 	{
 		return $this->next_playing_url;
 	}
+	
+	public function print_links()
+	{
+		echo "<url_link>". $this->get_now_playing_url() ."</url_link>\n";
+		echo "<next_link>". $this->get_next_playing_url() ."</next_link>\n";
+	}
 }
 
 $link = new Link();
-
-echo "<url_link>". $link->get_now_playing_url() ."</url_link>\n";
-echo "<next_link>". $link->get_next_playing_url() ."</next_link>\n";
+$link->print_links();
 
 ?>
