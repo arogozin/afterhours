@@ -43,6 +43,8 @@ In this case it will default URL to http://ah.fm if there is no match for curren
 $link = new Link('http://ah.fm/other_special_url');
 In this case it will default URL to http://ah.fm/other_special_url if there is no match for current and next show.
 
+$link->print_links(); // will output current link and upcoming show link in xml tag format.
+
 ```
 
 License
