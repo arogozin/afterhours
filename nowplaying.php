@@ -51,6 +51,8 @@ class Link
 		$result = str_replace('<![CDATA[ ', '', $result);
 		$result = str_replace(' ]]>', '', $result);
 		
+		$result = preg_replace('/ \d{2}\-\d{2}-\d{4}/', '', $result);
+		
 		return $result;
 	}
 	
@@ -108,6 +110,8 @@ class Link
 }
 
 $link = new Link();
+
+$title = 'Marcus Schossow - Tone Diary 283 03-10-2013';
 $link->print_links();
 
 ?>
